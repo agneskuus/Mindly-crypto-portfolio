@@ -6,14 +6,12 @@ import com.Mindly.cryptoPortfolio.service.MarketValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -51,7 +49,19 @@ public class PortfolioController {
         portfolioItem.setValue(currentMarketValue);
 
         Portfolio createdPortfolioItem = portfolioRepository.save(portfolioItem);
-//lisada siia header , CREATED vajab location headerit
         return new ResponseEntity<>(createdPortfolioItem, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "portfolio/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deletePortfolioItem(@PathVariable("id") long id) {
+        Optional<Portfolio> portfolioItem = portfolioRepository.findById(id);
+        if (portfolioItem.isPresent()) {
+            Portfolio item = portfolioItem.get();
+            portfolioRepository.delete(item);
+            return new ResponseEntity<>(item, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
