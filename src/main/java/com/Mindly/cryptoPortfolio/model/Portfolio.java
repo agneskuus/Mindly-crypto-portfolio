@@ -11,7 +11,7 @@ public class Portfolio {
     private Long id;
     @ManyToOne(targetEntity = Crypto.class)
     private Crypto crypto;
-    private int amount;
+    private double amount;
     private Date dateOfPurchase;
     private String location;
     private double value;
@@ -19,7 +19,7 @@ public class Portfolio {
     public Portfolio() {
     }
 
-    public Portfolio(Crypto crypto, int amount, Date dateOfPurchase, String location, double value) {
+    public Portfolio(Crypto crypto, double amount, Date dateOfPurchase, String location, double value) {
         this.crypto = crypto;
         this.amount = amount;
         this.dateOfPurchase = dateOfPurchase;
@@ -43,11 +43,11 @@ public class Portfolio {
         this.crypto = crypto;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

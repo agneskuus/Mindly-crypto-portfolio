@@ -2,13 +2,17 @@ package com.Mindly.cryptoPortfolio.controller;
 
 import com.Mindly.cryptoPortfolio.model.Portfolio;
 import com.Mindly.cryptoPortfolio.repository.PortfolioRepository;
+import com.Mindly.cryptoPortfolio.service.MarketValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -30,5 +34,24 @@ public class PortfolioController {
         }
 
         return new ResponseEntity<>(portfolioItems, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "portfolio", method = RequestMethod.POST)
+    public ResponseEntity<?> createPortfolioItem(@RequestBody Portfolio portfolioItem) {
+
+        if (portfolioItem.getId() != null && portfolioRepository.existsById(portfolioItem.getId())) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        if (portfolioItem.getDateOfPurchase() == null) {
+            portfolioItem.setDateOfPurchase(Date.valueOf(LocalDate.now()));
+        }
+
+        String cryptoSymbol = portfolioItem.getCrypto().getSymbol();
+        double currentMarketValue = MarketValueService.getMarketValue(portfolioItem.getAmount(), cryptoSymbol);
+        portfolioItem.setValue(currentMarketValue);
+
+        Portfolio createdPortfolioItem = portfolioRepository.save(portfolioItem);
+//lisada siia header , CREATED vajab location headerit
+        return new ResponseEntity<>(createdPortfolioItem, HttpStatus.CREATED);
     }
 }
