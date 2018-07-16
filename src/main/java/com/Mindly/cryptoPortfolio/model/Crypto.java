@@ -12,12 +12,14 @@ public class Crypto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String symbol;
 
     public Crypto() {
     }
 
-    public Crypto(String name) {
+    public Crypto(String name, String symbol) {
         this.name = name;
+        this.symbol = symbol;
     }
 
     public int getId() {
@@ -35,4 +37,8 @@ public class Crypto {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getSymbol() { return symbol; }
+
+    public void setSymbol(String symbol) { this.symbol = symbol; }
 }
