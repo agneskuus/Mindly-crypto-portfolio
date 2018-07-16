@@ -9,5 +9,14 @@ export default {
         catch(error) {
             console.log(error)
         }
+    },
+    async createPortfolioItem(portfolioItem) {
+        try {
+            let response = await service.post("/api/portfolio", portfolioItem)
+            return response.data
+        } catch(error) {
+            console.log(error)
+        }
     }
+
 }
