@@ -30,6 +30,7 @@ public class PortfolioController {
         if (portfolioItems.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        portfolioItems.forEach(this::getMarketValue);
 
         return new ResponseEntity<>(portfolioItems, HttpStatus.OK);
     }
@@ -44,10 +45,7 @@ public class PortfolioController {
             portfolioItem.setDateOfPurchase(Date.valueOf(LocalDate.now()));
         }
 
-        String cryptoSymbol = portfolioItem.getCrypto().getSymbol();
-        double currentMarketValue = MarketValueService.getMarketValue(portfolioItem.getAmount(), cryptoSymbol);
-        portfolioItem.setValue(currentMarketValue);
-
+        getMarketValue(portfolioItem);
         Portfolio createdPortfolioItem = portfolioRepository.save(portfolioItem);
         return new ResponseEntity<>(createdPortfolioItem, HttpStatus.CREATED);
     }
@@ -63,5 +61,11 @@ public class PortfolioController {
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    private void getMarketValue(Portfolio portfolioItem){
+        String cryptoSymbol = portfolioItem.getCrypto().getSymbol();
+        double currentMarketValue = MarketValueService.getMarketValue(portfolioItem.getAmount(), cryptoSymbol);
+        portfolioItem.setValue(currentMarketValue);
     }
 }

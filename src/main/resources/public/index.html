@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Portfolio</title>
     <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="./style/style.css"/>
 </head>
 <body>
-<div class="col-8 offset-2" id="portfolio-table">
+<div>
+<div class="col-10 offset-1" id="portfolio-table">
     <table class="table table-hover">
         <thead>
         <tr>
@@ -19,7 +21,7 @@
             <th><input class="form-control" v-model.trim="newPortfolioItem.dateOfPurchase" type="date" placeholder="Date of purchase (optional)"></th>
             <th><input class="form-control" v-model.trim="newPortfolioItem.location" type="text" placeholder="Wallet location"></th>
             <th align="middle">
-                <button type="button" class="btn btn-success" v-on:click="createPortfolioItem()">Save</button>
+                <button type="button" class="btn btn-outline-success" v-on:click="createPortfolioItem()">Save</button>
             </th>
         </tr>
         <tr>
@@ -31,15 +33,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="item in portfolio">
+        <tr v-for="(item, index) in portfolio">
             <td>{{ item.crypto.name }}</td>
             <td>{{ item.amount }}</td>
             <td>{{ item.dateOfPurchase }}</td>
             <td>{{ item.location }}</td>
             <td>{{ item.value }}</td>
+            <td>
+                <button type="button" class="btn btn-outline-danger" v-on:click="deletePortfolioItem(item, index)">Delete</button>
+            </td>
         </tr>
         </tbody>
     </table>
+</div>
 </div>
 <script src="//cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="//unpkg.com/axios/dist/axios.min.js"></script>
