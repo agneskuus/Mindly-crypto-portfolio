@@ -4,5 +4,8 @@ export default {
     },
     post(url, body) {
         return axios.post(url, body)
+    },
+    delete(url) {
+        return axios.delete(url)
     }
 }

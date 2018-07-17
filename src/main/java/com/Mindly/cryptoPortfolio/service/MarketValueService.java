@@ -13,8 +13,8 @@ public class MarketValueService {
         double currentMarketValue = currentPrice.getMarketValue(amount);
         if (symbol.equals("XRPBTC")){
             double convertedMarketValue = MarketValueService.getMarketValue(currentMarketValue,"BTCEUR");
-            return convertedMarketValue;
+            return (Math.round(convertedMarketValue*100)/100.0);
         }
-        return currentMarketValue;
+        return (Math.round(currentMarketValue*100)/100.0);
     }
 }
