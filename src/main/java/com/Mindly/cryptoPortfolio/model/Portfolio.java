@@ -14,17 +14,10 @@ public class Portfolio {
     private double amount;
     private Date dateOfPurchase;
     private String location;
+    @Transient
     private double value;
 
     public Portfolio() {
-    }
-
-    public Portfolio(Crypto crypto, double amount, Date dateOfPurchase, String location, double value) {
-        this.crypto = crypto;
-        this.amount = amount;
-        this.dateOfPurchase = dateOfPurchase;
-        this.location = location;
-        this.value = value;
     }
 
     public Long getId() {

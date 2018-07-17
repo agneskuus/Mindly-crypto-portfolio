@@ -18,13 +18,12 @@ export default {
             console.log(error)
         }
     },
-    async deletePortfolioItem(item) {
+    async deletePortfolioItem(portfolioItem) {
         try {
-            let response = await service.delete("/api/portfolio/" + (item.id))
+            let response = await service.delete("/api/portfolio/" + (portfolioItem.id))
             return response.data
         } catch(error) {
             console.log(error)
         }
     }
-
 }

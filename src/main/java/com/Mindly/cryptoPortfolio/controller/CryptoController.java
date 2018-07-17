@@ -28,8 +28,6 @@ public class CryptoController {
         if (cryptos.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
         return new ResponseEntity<>(cryptos, HttpStatus.OK);
-
     }
 }

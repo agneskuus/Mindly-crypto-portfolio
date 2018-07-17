@@ -30,7 +30,7 @@ new Vue({
             }
         },
         async deletePortfolioItem(item, index) {
-            let didConfirm = confirm("Are you sure you want to delete?\n" + item.crypto.name
+            let didConfirm = confirm("Are you sure you want to delete this item?\n" + item.crypto.name
                 + ", value: " + item.value + "€")
             if (didConfirm) {
                 let deletedItem = await PortfolioProvider.deletePortfolioItem(item)
