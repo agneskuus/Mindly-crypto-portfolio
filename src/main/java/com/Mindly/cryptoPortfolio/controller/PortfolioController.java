@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+
 @RestController
 @RequestMapping("/api")
 public class PortfolioController {
@@ -31,13 +32,11 @@ public class PortfolioController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         portfolioItems.forEach(this::getMarketValue);
-
         return new ResponseEntity<>(portfolioItems, HttpStatus.OK);
     }
 
     @RequestMapping(value = "portfolio", method = RequestMethod.POST)
     public ResponseEntity<?> createPortfolioItem(@RequestBody Portfolio portfolioItem) {
-
         if (portfolioItem.getId() != null && portfolioRepository.existsById(portfolioItem.getId())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }

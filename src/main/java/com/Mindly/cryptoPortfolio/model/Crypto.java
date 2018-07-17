@@ -17,11 +17,6 @@ public class Crypto {
     public Crypto() {
     }
 
-    public Crypto(String name, String symbol) {
-        this.name = name;
-        this.symbol = symbol;
-    }
-
     public int getId() {
         return id;
     }
